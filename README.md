@@ -2,6 +2,8 @@
 
 New UI for SFMC using a Code Resource.
 
+This repo: https://github.com/PabloFacciano/sfmc-new-ui
+
 ## Prod
 ### Code Resource
 Type: JS
