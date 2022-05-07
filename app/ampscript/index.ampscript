@@ -1,20 +1,9 @@
 %%[
-
-VAR @fileContent, @fileContentType
-SET @file = RequestParameter("file")
-SET @url = RequestParameter("PAGEURL")
-
-IF Empty(@file) THEN
-  SET @fileContentType = "text/html; charset=UTF-8"
-  SET @fileContent = TreatAsContent(HTTPGet("https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/public/index.html"))
-ELSEIF (@file == "JS") THEN
-  SET @fileContentType = "text/javascript; charset=UTF-8"
-  SET @fileContent = TreatAsContent(HTTPGet("https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/dist/app.js"))
-ENDIF
-
+SET @fileContentType = "text/html; charset=UTF-8"
+SET @fileContent = TreatAsContent(HTTPGet("https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/public/index.html"))
 ]%%
+%%=v(@fileContent)=%%
 <script runat="server">
 Platform.Response.RemoveResponseHeader("Content-Type");
 Platform.Response.SetResponseHeader("Content-Type",Platform.Variable.GetValue("@fileContentType"));
 </script>
-%%=v(@fileContent)=%%
