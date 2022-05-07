@@ -13,8 +13,7 @@
       </p>
     </div>
     <div class="h-100" v-if="showIframe">
-      %%=TreatAsContent(HTTPGet('https://mc.s10.exacttarget.com/cloud/#app/Marketing%20Cloud%20Dashboard/?ks=ks'))=%%
-      <!--iframe class="h-100 w-100" style="border:none;" src=""></iframe-->
+      <iframe class="h-100 w-100" style="border:none;" :srcdoc="iframeHtml"></iframe>
     </div>
     <footer class="footer shadow mt-auto py-3 bg-light" v-if="showFooter">
       <div class="container">
@@ -27,12 +26,26 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
+  mounted(){
+    axios.get('https://mc.s10.exacttarget.com/cloud/#app/Marketing%20Cloud%20Dashboard/?ks=ks')
+    .then((response) => {
+      // handle success
+      console.log(response);
+      this.iframeHtml = response;
+    })
+    .catch((error) => {
+      // handle error
+      console.error(error);
+    });
+  },
   data(){
     return {
       showQuestion: true,
       showIframe: true,
-      showFooter: false
+      showFooter: false,
+      iframeHtml: ''
     }
   },
   computed: {
