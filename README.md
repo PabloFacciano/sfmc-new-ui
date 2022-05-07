@@ -18,11 +18,11 @@ npm run build
 ## Code Resource
 Type: Any
 Content:
-```
+```ampscript
 <script runat="server">
 Platform.Response.RemoveResponseHeader("Content-Type");
 Platform.Response.SetResponseHeader("Content-Type","text/html; charset=UTF-8");
 </script>
-%%[ set @content = HTTPGet('https://google.com') ]%%
+%%[ set @content = HTTPGet('https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/dist/index.ampscript') ]%%
 %%=TreatAsContent(@content)=%%
 ```
