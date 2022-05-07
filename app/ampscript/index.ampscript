@@ -1,0 +1,8 @@
+%%[
+
+SET @file = RequestParameter("file")
+IF Empty(@file) THEN
+  Output(TreatAsContent(HTTPGet("https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/public/index.html")))
+ENDIF
+
+]%%
