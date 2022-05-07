@@ -7,13 +7,15 @@ SET @url = RequestParameter("PAGEURL")
 IF Empty(@file) THEN
   SET @fileContentType = "text/html; charset=UTF-8"
   SET @fileContent = HTTPGet("https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/public/index.html")
+ELSEIF (@file == "JS") THEN
+  SET @fileContentType = "text/javascript; charset=UTF-8"
+  SET @fileContent = HTTPGet("https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/dist/app.js")
 ENDIF
 
 ]%%
 <script runat="server">
 Platform.Response.RemoveResponseHeader("Content-Type");
 Platform.Response.SetResponseHeader("Content-Type",Platform.Variable.GetValue("@fileContentType"));
-Platform.Response.Write(Platform.Variable.GetValue("@fileContent"));
 </script>
 
 %%=v(@url)=%%
