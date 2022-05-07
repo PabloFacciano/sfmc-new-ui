@@ -6,13 +6,6 @@
       <AppHeader />
       <router-view />
     </div>
-    <footer class="footer shadow mt-auto py-3 bg-light">
-      <div class="container">
-        <div class="d-flex justify-content-center">
-          <span class="text-muted">Built with ♡ by Pablo Facciano.</span>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
