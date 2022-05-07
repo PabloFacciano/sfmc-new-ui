@@ -8,7 +8,7 @@ Type: JS
 
 Content:
 ```javascript
-%%=TreatAsContent(HTTPGet('https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/ampscript/index.ampscript'))=%%
+%%=TreatAsContent(HTTPGet('https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/ampscript/index.ampscript'))=%%
 ```
 
 ## Dev
