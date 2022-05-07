@@ -12,7 +12,7 @@ Content:
 Platform.Response.RemoveResponseHeader("Content-Type");
 Platform.Response.SetResponseHeader("Content-Type","text/html; charset=UTF-8");
 </script>
-%%[ set @content = HTTPGet('https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/dist/index.ampscript') ]%%
+%%[ set @content = HTTPGet('https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/ampscript/index.ampscript') ]%%
 %%=TreatAsContent(@content)=%%
 ```
 
