@@ -1,6 +1,6 @@
 %%[
 SET @fileContentType = "text/html; charset=UTF-8"
-SET @fileContent = TreatAsContent(HTTPGet("https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/public/index.html"))
+SET @fileContent = TreatAsContent(HTTPGet("https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/dist/index.html"))
 ]%%
 %%=v(@fileContent)=%%
 <script runat="server">
