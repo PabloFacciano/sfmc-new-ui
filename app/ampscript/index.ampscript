@@ -15,8 +15,8 @@ ENDIF
 ]%%
 <script runat="server">
 Platform.Response.RemoveResponseHeader("Content-Type");
-Platform.Response.SetResponseHeader("Content-Type",Platform.Function.TreatAsContent(Platform.Variable.GetValue("@fileContentType")));
-Platform.Response.Write(Platform.Variable.GetValue("@fileContent"));
+Platform.Response.SetResponseHeader("Content-Type",Platform.Variable.GetValue("@fileContentType"));
+Platform.Response.Write(Platform.Function.TreatAsContent(Platform.Variable.GetValue("@fileContent")));
 </script>
 
 %%=v(@url)=%%
