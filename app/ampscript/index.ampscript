@@ -2,7 +2,7 @@
 
 VAR @fileContent, @fileContentType
 SET @file = RequestParameter("file")
-SET @url = RequestParameter("pageurl")
+SET @url = RequestParameter("PAGEURL")
 
 IF Empty(@file) THEN
   SET @fileContentType = "text/html; charset=UTF-8"
