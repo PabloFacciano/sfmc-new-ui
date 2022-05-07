@@ -2,28 +2,26 @@
   <!-- App.vue -->
   <div class="d-flex flex-column" style="height: 100vh;">
     <NoIframe v-if="!isIframe"/>
-    <div v-if="isIframe" class="d-flex flex-column">
+    <div v-if="isIframe" class="d-flex flex-column h-100">
       <!-- Question -->
-      <div class="bg-light px-3 px-2" v-if="showQuestion">
+      <div class="d-flex align-items-center justify-content-between bg-light px-3 py-2" v-if="showQuestion">
         <div>Welcome to the beta version of the new UI.</div>
-        <button type="button" class="ms-3 btn btn-primary btn-sm" @click="showNewUI">
-          Nice!
-        </button>
-        <button type="button" class="ms-2 btn btn-link" @click="dontShowNewUI">
-          I want the previous version.
-        </button>
-        <div class="ms-auto text-muted">
-          <small>UI redesign by Pablo Facciano.</small>
+        <div>
+          <button type="button" class="ms-3 btn btn-primary btn-sm" @click="showNewUI">
+            Nice!
+          </button>
+          <button type="button" class="ms-2 btn btn-link" @click="dontShowNewUI">
+            No, thanks.
+          </button>
         </div>
       </div>
-      <div class="h-100">
+      <!-- Content -->
+      <div class="d-flex flex-column h-100">
         <AppHeader />
         <router-view />
-        <footer class="footer shadow mt-auto py-3 bg-light">
-          <div class="container">
-            <div class="d-flex justify-content-center">
-              <span class="text-muted">Built with ♡ by Pablo Facciano.</span>
-            </div>
+        <footer class="footer mt-auto py-1 px-3 bg-dark text-light">
+          <div class="d-flex justify-content-center">
+            <span class="text-muted">UI redesign with ♡ by Pablo Facciano.</span>
           </div>
         </footer>
       </div>
