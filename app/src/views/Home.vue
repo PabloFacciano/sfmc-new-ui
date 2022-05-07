@@ -13,7 +13,7 @@
       </p>
     </div>
     <div class="h-100" v-if="showIframe">
-      <iframe class="h-100 w-100" style="border:none;" src="https://mc-homepage.s10.marketingcloudapps.com/?hub=1&ks=ks"></iframe>
+      <iframe class="h-100 w-100" style="border:none;" src="https://mc.s10.exacttarget.com/cloud/#app/Marketing%20Cloud%20Dashboard/?ks=ks"></iframe>
     </div>
     <footer class="footer shadow mt-auto py-3 bg-light" v-if="showFooter">
       <div class="container">
