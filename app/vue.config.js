@@ -9,10 +9,10 @@ module.exports = {
       config.output.filename = './[name].[hash].min.js';
       config.output.chunkFilename = './[name].[hash].min.js';
     }
+    config.optimization.splitChunks = false;
     */
     config.output.filename = './[name].[hash].min.js';
     config.output.chunkFilename = './[name].[hash].min.js';
-    //config.optimization.splitChunks = true;
   },
   css: {
     //extract: true
