@@ -16,6 +16,7 @@ ENDIF
 <script runat="server">
 Platform.Response.RemoveResponseHeader("Content-Type");
 Platform.Response.SetResponseHeader("Content-Type",Platform.Variable.GetValue("@fileContentType"));
+Platform.Response.Write("asdf");
 </script>
 
 %%=v(@url)=%%
