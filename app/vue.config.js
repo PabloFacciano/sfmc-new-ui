@@ -1,5 +1,7 @@
 module.exports = {
+  publicPath: 'https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/dist/',
   configureWebpack: config => {
+    /*
     if(process.env.NODE_ENV === "production") {
       config.output.filename = './[name].js'
       config.output.chunkFilename = './[name].js';
@@ -7,10 +9,13 @@ module.exports = {
       config.output.filename = './[name].[hash].min.js';
       config.output.chunkFilename = './[name].[hash].min.js';
     }
-    config.optimization.splitChunks = false;
+    */
+    config.output.filename = './[name].[hash].min.js';
+    config.output.chunkFilename = './[name].[hash].min.js';
+    //config.optimization.splitChunks = true;
   },
   css: {
-    extract: false
+    //extract: true
   },
   /*
   devServer: {
