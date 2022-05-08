@@ -1,6 +1,14 @@
 %%[
-SET @fileContentType = "text/html; charset=UTF-8"
-SET @fileContent = TreatAsContent(HTTPGet("https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/dist/index.html"))
+
+SET @file = RequestParameter('file')
+IF empty(@file) THEN
+  SET @fileContentType = "text/html; charset=UTF-8"
+  SET @fileContent = TreatAsContent(HTTPGet("https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/dist/index.html"))
+ELSEIF (@file == 'api') THEN
+  SET @fileContentType = "application/json; charset=UTF-8"
+  SET @fileContent = TreatAsContent(HTTPGet("https://raw.githubusercontent.com/PabloFacciano/sfmc-new-ui/main/app/ampscript/api.ampscript"))
+ENDIF
+
 ]%%
 %%=v(@fileContent)=%%
 <script runat="server">

@@ -1,0 +1,15 @@
+<script runat="server">
+
+function run_api(){
+  var output = {
+    status: 'ok',
+    request: {
+      url: Platform.Request.RequestURL,
+      payload: Platform.Function.ParseJSON(Platform.Request.GetPostData('utf-8'))
+    }
+  }
+  Platform.Response.Write(Platform.Function.Stringify({ status: 'ok' }))
+}
+run_api()
+
+</script>
