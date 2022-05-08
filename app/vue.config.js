@@ -1,5 +1,11 @@
 module.exports = {
-  publicPath: 'https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/dist/',
+  publicPath: (() => {
+    if(process.env.NODE_ENV === "production") {
+      return 'https://gitcdn.link/cdn/PabloFacciano/sfmc-new-ui/main/app/dist/';
+    } else {
+      return './';
+    }    
+  })(),
   configureWebpack: config => {
     /*
     if(process.env.NODE_ENV === "production") {
