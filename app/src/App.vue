@@ -4,13 +4,13 @@
     <NoIframe v-if="!isIframe"/>
     <div v-if="isIframe" class="d-flex flex-column h-100">
       <!-- Question -->
-      <div class="d-flex align-items-center justify-content-between bg-light px-3 py-2" v-if="showQuestion">
+      <div class="d-flex align-items-center justify-content-between bg-dark text-light px-3 py-2" v-if="showQuestion">
         <div>Welcome to the beta version of the new UI.</div>
         <div>
-          <button type="button" class="ms-3 btn btn-primary btn-sm" @click="showNewUI">
+          <button type="button" class="ms-3 btn btn-light btn-sm" @click="showNewUI">
             Nice!
           </button>
-          <button type="button" class="ms-2 btn btn-link" @click="dontShowNewUI">
+          <button type="button" class="ms-2 btn btn-link text-light" @click="dontShowNewUI">
             No, thanks.
           </button>
         </div>

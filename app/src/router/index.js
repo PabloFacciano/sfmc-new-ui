@@ -3,24 +3,40 @@
 
 import { createRouter, createWebHashHistory } from 'vue-router'
 import AppView_Home from '@/views/Home.vue'
-import AppView_About from '@/views/About.vue'
-import AppView__404 from '@/views/_404.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'App',
+    name: 'Home',
     component: AppView_Home,
   },
   {
+    path: '/audience',
+    children: [
+      {
+        path: '/contacts',
+        children: [
+          {
+            alias: '/list',
+            path: '/',
+            component: () => import('@/views/AudienceContacts.vue'),
+          },
+        ]
+      },
+      {
+        path: '/',
+        component: () => import('@/views/Audience.vue'),
+      }
+    ]
+  },
+  {
     path: '/about',
-    name: 'About',
-    component: AppView_About,
+    component: () => import('@/views/About.vue'),
   },
   {
     path: '/404',
     name: '404',
-    component: AppView__404,
+    component: require('@/views/_404.vue').default,
     // Allows props to be passed to the 404 page through route
     // params, such as `resource` to define what wasn't found.
     props: true,
@@ -34,7 +50,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  linkActiveClass: "bg-primary text-light",
+  linkExactActiveClass: "bg-primary text-light",
+  routes,
 })
 
-export default router
+export default router;
+

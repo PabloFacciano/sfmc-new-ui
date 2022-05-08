@@ -1,6 +1,8 @@
 <template>
   <div>
-    Hello world!
+    <h1>Home.vue</h1>
+    <p>Nothing to see here yet!</p>
+    <!-- iframe src="" class="w-100 h-100" /-->
   </div>
 </template>
 
