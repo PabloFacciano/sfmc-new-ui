@@ -17,7 +17,7 @@
       </div>
       <!-- Content -->
       <div class="d-flex flex-column h-100">
-        <AppHeader />
+        <AppNavbar />
         <router-view />
         <footer class="footer mt-auto py-1 px-3 bg-dark text-light">
           <div class="d-flex justify-content-center">
@@ -31,13 +31,13 @@
 
 <script>
 import NoIframe from '@/components/NoIframe.vue';
-import AppHeader from '@/components/AppHeader.vue';
+import AppNavbar from '@/components/AppNavbar.vue';
 
 export default {
   name: "Home",
   components: {
     NoIframe,
-    AppHeader
+    AppNavbar
   },
   computed: { 
     isIframe() {
@@ -59,7 +59,7 @@ export default {
     }
   },
   mounted(){
-    console.log(">>>> VUE APP START!", this);
+    
   },
   data(){
     return {
