@@ -6,10 +6,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          <router-link class="nav-link rounded ms-2" to="/">Home</router-link>
-          <router-link class="nav-link rounded ms-2" to="/audience">Audience</router-link>
-          <router-link class="nav-link rounded ms-2" to="/automation">Automation</router-link>
-          <router-link class="nav-link rounded ms-2" to="/about">About</router-link>
+          <AppNavbarLink v-for="l in navbar" :key="l?.to" :config="l" :to="l.to"/>
         </div>
       </div>
     </div>
@@ -17,8 +14,101 @@
 </template>
 
 <script>
+import AppNavbarLink from './AppNavbarLink.vue'
 export default {
+  components: { AppNavbarLink },
+  data(){
+    return {
+      navbar: [
+        {
+          label: 'Home',
+          to: '/',
+          children: []
+        },
+        {
+          label: 'Audience',
+          to: '/audience',
+          children: [
+            {
+              label: 'Contacts',
+              to: '/contacts',
+              children: [
+                {
+                  label: 'List',
+                  to: '/',
+                  children: []
+                },
+                {
+                  label: 'All Contacts',
+                  to: '/allcontacts',
+                  children: []
+                },
+                {
+                  label: 'Mobile Lists',
+                  to: '/mobilelists',
+                  children: []
+                },
+                {
+                  label: 'Favorites',
+                  to: '/favorites',
+                  children: []
+                }
+              ]
+            },
+            {
+              label: 'Data Extensions',
+              to: '/dataextensions',
+              children: [
+                {
+                  label: 'List',
+                  to: '',
+                  children: []
+                },
+                {
+                  label: 'Shared Data Extensions',
+                  to: '/shareddataextensions',
+                  children: []
+                }
+              ]
+            },
+            {
+              label: 'Data Views',
+              to: '/dataviews',
+              children: [
 
+              ]
+            },
+            {
+              label: 'Subscription',
+              to: '/subscription',
+              children: [
+
+              ]
+            },
+            {
+              label: 'Classic',
+              to: '/classic',
+              children: [
+
+              ]
+            }
+          ]
+        },
+        {
+          label: 'Automation',
+          to: '/automation',
+          children: [
+
+          ]
+        },
+        {
+          label: 'About',
+          to: '/about',
+          children: []
+        }
+      ]
+    }
+  }
 }
 </script>
 

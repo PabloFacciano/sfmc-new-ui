@@ -8,35 +8,31 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    props: true,
     component: AppView_Home,
   },
   {
     path: '/audience',
+    props: true,
+    component: () => import('@/views/Audience.vue'),
     children: [
       {
-        path: '/contacts',
-        children: [
-          {
-            alias: '/list',
-            path: '/',
-            component: () => import('@/views/AudienceContacts.vue'),
-          },
-        ]
-      },
-      {
-        path: '/',
-        component: () => import('@/views/Audience.vue'),
+        alias: 'contacts',
+        path: '',
+        props: true,
+        component: () => import('@/views/AudienceContacts.vue')
       }
     ]
   },
   {
     path: '/about',
+    props: true,
     component: () => import('@/views/About.vue'),
   },
   {
     path: '/404',
     name: '404',
-    component: require('@/views/_404.vue').default,
+    component: () => import('@/views/_404.vue'),
     // Allows props to be passed to the 404 page through route
     // params, such as `resource` to define what wasn't found.
     props: true,
@@ -44,7 +40,7 @@ const routes = [
   // Redirect any unmatched routes to the 404 page.
   {
     path: '/:pathMatch(.*)*',
-    redirect: '404',
+    redirect: '404'
   },
 ]
 
