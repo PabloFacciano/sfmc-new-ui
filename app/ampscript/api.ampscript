@@ -8,6 +8,27 @@ try {
   }
 
   // SFMC API
+
+// SFMC API
+function sfmc_get_token(){
+  // Return available token
+  if (api_config.token != null && 
+      api_config.token.expiresAt < new Date()){
+    return api_config.token.value; 
+  }    
+
+  function getSavedToken(){
+    let token_row = Platform.Function.LookupRows(api_config.token_data_extension,'id','1');
+    if(token_row && token_row.length > 0) {
+      token_row = token_row[0];
+    } else {
+      token_row = null;
+    }
+    api_config.token_row = t;
+    return t;
+  }
+}
+
   // SFMC WSPROXY
   var api_wsproxy = new Script.Util.WSProxy();
 
