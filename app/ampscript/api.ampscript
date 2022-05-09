@@ -1,21 +1,4 @@
 <script runat="server">
-// API Init
-var api_config = {
-  token_data_extension: 'sfmc_token',
-  token_row: null,
-  token: null
-}
 
-// SFMC WSPROXY
-var api_wsproxy = new Script.Util.WSProxy();
-
-
-
-
-// API Entry point
-function run_api(){
-  Platform.Response.Write(Platform.Function.Stringify({ status: 'ok' }))
-}
-run_api()
 
 </script>
