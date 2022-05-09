@@ -2,7 +2,7 @@
   <div class="dropdown d-flex">
     <!-- Link -->
     <router-link
-      class="btn dropdown-item w-100 text-start mx-1"
+      class="btn dropdown-item w-100 text-start m-1"
       :to="to"
       @mouseover="hover = true"
       @click="hover = false"
@@ -12,7 +12,7 @@
     </router-link>
     <!-- DropdownItems -->
     <div
-      class="dropdown-menu show shadow-sm p-1" style="margin-left: 100%;"
+      class="dropdown-menu show shadow-sm p-0" style="margin-left: 100%;"
       v-if="config?.children?.length > 0 && hover"
       @mouseleave="hover = false"
       @click="hover = false"
