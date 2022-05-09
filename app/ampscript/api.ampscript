@@ -16,46 +16,6 @@ try {
       return api_config.token.value; 
     }    
 
-    function getSavedToken(){
-      let token_row = Platform.Function.LookupRows(api_config.token_data_extension,'id','1');
-      if(token_row && token_row.length > 0) {
-        token_row = token_row[0];
-      } else {
-        token_row = null;
-      }
-      api_config.token_row = token_row;
-      return token_row;
-    }
-  function getNewToken(){
-    var result = [0];
-    var body = {
-      "grant_type": "client_credentials",
-      "client_id": token_row.clientid,
-      "client_secret": token_row.clientsecret
-    };
-    var statusCode = Platform.Function.HTTPPost('https://' + token_row.tenant + '.auth.marketingcloudapis.com/v2/token' ,'application/json',Platform.Function.Stringify(body),['x-request-id'],['headerValue'],result);
-    if (statusCode == 200)  {
-      var result = Platform.Function.ParseJSON(result[0]);
-      var t = new Date();
-      t.setSeconds(t.getSeconds() + result.expires_in);
-      return {
-        value: result.access_token,
-        expiresAt: t
-      };
-
-    } else {
-      Platform.Function.RaiseError("Cannot get Token from API.",false,"statusCode",statusCode)
-    }
-  }
-  
-  function saveCurrentToken(){
-    Platform.Function.UpsertData(
-      api_config.token_data_extension, 
-      ["flag"],
-      ["1"],
-      ["token", "expiresAt"],
-      [api_config.token.value,api_config.token.expiresAt]
-    )
   }
 
   // Get saved token and validate
