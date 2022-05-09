@@ -87,7 +87,8 @@ function run_api(){
     request: {
       url: Platform.Request.RequestURL,
       payload: Platform.Function.ParseJSON(Platform.Request.GetPostData('utf-8'))
-    }
+    },
+    token: api_config.token
   }
   Platform.Response.Write(Platform.Function.Stringify({ status: 'ok' }))
 }
