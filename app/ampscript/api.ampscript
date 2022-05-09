@@ -14,11 +14,15 @@ var api_wsproxy = new Script.Util.WSProxy();
 
 // API Entry point
 function run_api(){
+  var input = Platform.Request.GetPostData('utf-8');
+  if (input){
+    input = Platform.Function.ParseJSON(input);
+  }
   var output = {
     status: 'ok',
     request: {
       url: Platform.Request.RequestURL,
-      payload: Platform.Function.ParseJSON(Platform.Request.GetPostData('utf-8'))
+      payload: input
     },
     token: api_config.token
   }
