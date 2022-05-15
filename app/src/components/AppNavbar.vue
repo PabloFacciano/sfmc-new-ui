@@ -1,12 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-0">
     <div class="container-fluid">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          <AppNavbarLink v-for="l in navbar" :key="l?.to" :config="l" :to="l.to"/>
+          <AppNavbarItem v-for="l in navbar" :key="l?.to" :config="{ config: l, to: l.to, type: l.type}" />
         </div>
       </div>
     </div>
@@ -14,16 +14,17 @@
 </template>
 
 <script>
-import AppNavbarLink from './AppNavbarLink.vue'
+import AppNavbarItem from './AppNavbarItem.vue'
 export default {
-  components: { AppNavbarLink },
+  components: { AppNavbarItem },
   data(){
     return {
       navbar: [
         {
           label: 'Home',
           to: '/',
-          children: []
+          children: [],
+          type: 'link'
         },
         {
           label: 'Audience',
@@ -36,24 +37,29 @@ export default {
                 {
                   label: 'List',
                   to: '/',
-                  children: []
+                  children: [],
+                  type: 'link'
                 },
                 {
                   label: 'All Contacts',
                   to: '/allcontacts',
-                  children: []
+                  children: [],
+                  type: 'link'
                 },
                 {
                   label: 'Mobile Lists',
                   to: '/mobilelists',
-                  children: []
+                  children: [],
+                  type: 'link'
                 },
                 {
                   label: 'Favorites',
                   to: '/favorites',
-                  children: []
+                  children: [],
+                  type: 'link'
                 }
-              ]
+              ],
+              type: 'link'
             },
             {
               label: 'Data Extensions',
@@ -62,49 +68,59 @@ export default {
                 {
                   label: 'List',
                   to: '',
-                  children: []
+                  children: [],
+                  type: 'link'
                 },
                 {
                   label: 'Shared Data Extensions',
                   to: '/shareddataextensions',
-                  children: []
+                  children: [],
+                  type: 'link'
                 }
-              ]
+              ],
+              type: 'link'
             },
             {
               label: 'Data Views',
               to: '/dataviews',
               children: [
 
-              ]
+              ],
+              type: 'link'
             },
             {
               label: 'Subscription',
               to: '/subscription',
               children: [
 
-              ]
+              ],
+              type: 'link'
+            },
+            {
+              type: 'separator'
             },
             {
               label: 'Classic',
               to: '/classic',
               children: [
 
-              ]
+              ],
+              type: 'link'
             }
-          ]
+          ],
+          type: 'link'
         },
         {
           label: 'Automation',
           to: '/automation',
-          children: [
-
-          ]
+          children: [],
+          type: 'link'
         },
         {
           label: 'About',
           to: '/about',
-          children: []
+          children: [],
+          type: 'link'
         }
       ]
     }

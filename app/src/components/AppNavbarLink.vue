@@ -17,19 +17,16 @@
       @mouseleave="hover = false"
       @click="hover = false"
     >
-      <AppNavbarLink
-        v-for="l in config?.children"
-        :config="l"
-        :key="to + l.to"
-        :to="to + l.to"
-      />
+      <AppNavbarItem v-for="l in config?.children" :key="to + l.to" :config="{ config: l, to: to + l.to, type: l.type}" />
     </div>
   </div>
 </template>
 
 <script>
+import AppNavbarItem from './AppNavbarItem.vue'
 export default {
   props: ["config", "to"],
+  components: { AppNavbarItem },
   data() {
     return {
       hover: false
