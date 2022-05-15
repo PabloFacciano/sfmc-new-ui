@@ -1,5 +1,4 @@
 <script runat="server">
-// v1122
 try {
   // API Init
   var api_config = {
@@ -15,16 +14,98 @@ try {
         api_config.token.expiresAt < new Date()){
       return api_config.token.value; 
     }    
+
+    function getSavedToken(){
+      var token_row = Platform.Function.LookupRows(api_config.token_data_extension,'id','1');
+      if(token_row && token_row.length > 0) {
+        token_row = token_row[0];
+      } else {
+        token_row = null;
+      }
+      api_config.token_row = token_row;
+      return {
+        value: token_row.token,
+        expiresAt: token_row.tokenexpiresat
+      };
+    }
+    function getNewToken(){
+      var token_row = Platform.Function.LookupRows(api_config.token_data_extension,'id','1');
+      if(token_row && token_row.length > 0) {
+        token_row = token_row[0];
+      } else {
+        Platform.Function.RaiseError("No available credentials to get token in sfmc_token data extension.",false,"statusCode",400);
+      }
+      
+      var result = [0];
+      var body = {
+        "grant_type": "client_credentials",
+        "client_id": token_row.clientid,
+        "client_secret": token_row.clientsecret
+      };
+      var url = 'https://' + token_row.tenant + '.auth.marketingcloudapis.com/v2/token';
+      
+      var statusCode = Platform.Function.HTTPPost(url ,'application/json',Platform.Function.Stringify(body),['x-request-id'],['headerValue'],result);
+      if (statusCode == 200)  {
+        var result = Platform.Function.ParseJSON(result[0]);
+        var t = new Date();
+        t.setSeconds(t.getSeconds() + result.expires_in);
+        return {
+          value: result.access_token,
+          expiresAt: t
+        };
+
+      } else {
+        Platform.Function.RaiseError("Cannot get Token from API.",false,"statusCode",statusCode)
+      }
+    }
+    function saveCurrentToken(){
+      Platform.Function.UpsertData(
+        api_config.token_data_extension, 
+        ["id"],
+        ["1"],
+        ["token", "tokenexpiresAt"],
+        [api_config.token.value,new Date(api_config.token.expiresAt)]
+      )
+    }
+
+    // Get saved token and validate
+    var savedToken = getSavedToken();
+    
+    var getNewTokenNow = false;
+    if (savedToken != null){
+      if (savedToken.value){
+        var now = new Date();
+        var nextDate = new Date(savedToken.expiresAt);
+        if (now.getTime() > nextDate.getTime()){
+          getNewTokenNow = true;
+        }
+      } else {
+        getNewTokenNow = true;
+      }
+    } else {
+      getNewTokenNow = true;
+    }
+    if (getNewTokenNow){
+      // Get new token and return
+      api_config.token = getNewToken();
+      saveCurrentToken();
+    } else {
+      api_config.token = savedToken;
+    }
+    return api_config.token.value;
   }
 
   // SFMC WSPROXY
   var api_wsproxy = new Script.Util.WSProxy();
+  // Platform.Function.RaiseError("Expired!: " + Platform.Function.Stringify(now),false,"statusCode",400);
 
 
 
 
   // API Entry point
   function run_api(){
+    sfmc_get_token();
+    
     var input = Platform.Request.GetPostData('utf-8');
     if (input){
       input = Platform.Function.ParseJSON(input);
