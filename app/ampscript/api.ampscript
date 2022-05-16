@@ -94,6 +94,67 @@ try {
     }
     return api_config.token.value;
   }
+  function sfmc_contacts(input){
+    var url = 'https://' + api_config.token_row.tenant + '.rest.marketingcloudapis.com/contacts/v1/contacts/search';
+    var params = [];
+    if (input.page != undefined){
+      params.push('$page=' + input.page);
+    }
+    if (input.pageSize != undefined){
+      params.push('$pageSize=' + input.pageSize);
+    }
+    if (params.length > 0){
+      url += '?' + params.join('&');
+    }
+    var body = { 
+       "request":{ 
+          "attributes":[ 
+             { 
+                "key":"Contact.Contact Key"
+             }
+          ]
+       },
+       "conditionSet":{ 
+          "operator":"And",
+          "conditionSets":[ 
+
+          ],
+          "conditions":[ 
+             { 
+                "attribute":{ 
+                   "key":"Contact.Contact Key"
+                },
+                "operator":"notEquals",
+                "value":{ 
+                   "items":[ 
+                      ""
+                   ]
+                }
+             }
+          ]
+       }
+    };
+    var result = [0];
+    var statusCode = Platform.Function.HTTPPost(url ,'application/json',Platform.Function.Stringify(body),['Authorization'],['Bearer '+api_config.token.value],result);
+    if (statusCode == 200){
+      var res = Platform.Function.ParseJSON(result[0]);
+      return res;
+    } else {
+      Platform.Function.RaiseError("Cannot get Contacts from API. Status code: "+statusCode,false,"statusCode",statusCode)
+    }
+  }
+  function sfmc_contacts_count(){
+    var url = 'https://' + api_config.token_row.tenant + '.rest.marketingcloudapis.com/contacts/v1/addresses/count/';
+    var body = {"filterConditionOperator":"Is"};
+    var result = [0];
+    var statusCode = Platform.Function.HTTPPost(url ,'application/json',Platform.Function.Stringify(body),['Authorization'],['Bearer '+api_config.token.value],result);
+    if (statusCode == 200){
+      var res = Platform.Function.ParseJSON(result[0]);
+      return res;
+    } else {
+      Platform.Function.RaiseError("Cannot get Contacts Count from API. Status code: "+statusCode,false,"statusCode",statusCode)
+    }
+  }
 
   // SFMC WSPROXY
   var api_wsproxy = new Script.Util.WSProxy();
@@ -110,15 +171,22 @@ try {
     if (input){
       input = Platform.Function.ParseJSON(input);
     }
+    var result = {};    
+    if (input.action == 'get-contacts'){
+      result.contacts = sfmc_contacts(input);
+      result.contactsCount = sfmc_contacts_count();
+    }    
+    
     var output = {
       status: 'ok',
       request: {
+        id: Platform.Function.GUID(),
         url: Platform.Request.RequestURL,
         payload: input
       },
-      token: api_config.token
+      response: result
     }
-    Platform.Response.Write(Platform.Function.Stringify(output))
+    Platform.Response.Write(Platform.Function.Stringify(output));
   }
   run_api();
 
